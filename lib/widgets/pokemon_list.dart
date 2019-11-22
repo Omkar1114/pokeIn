@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 import '../models/pokemon_details_args.dart';
 import '../screens/pokemon_details_screen.dart';
@@ -33,13 +34,22 @@ class PokemonList extends StatelessWidget {
             ),
           );
         },
-        trailing: Hero(
-          tag: pkData.pokemon[pkIndex].id,
-          child: CachedNetworkImage(
-            imageUrl: pkData.pokemon[pkIndex].img,
-            placeholder: (context, url) => CircularProgressIndicator(),
-            errorWidget: (context, url, error) => Icon(Icons.error),
-            fit: BoxFit.fill,
+        trailing: Container(
+          height: 80,
+          width: 60,
+          child: Hero(
+            tag: pkData.pokemon[pkIndex].id,
+            child: CachedNetworkImage(
+              imageUrl: pkData.pokemon[pkIndex].img,
+              placeholder: (context, url) => FlareActor(
+                'assets/images/Poke_Spinner.flr',
+                alignment: Alignment.center,
+                fit: BoxFit.fill,
+                animation: 'pokespin',
+              ),
+              errorWidget: (context, url, error) => Icon(Icons.error),
+              fit: BoxFit.fill,
+            ),
           ),
         ),
         title: Text(

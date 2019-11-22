@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flare_flutter/flare_actor.dart';
 
 import '../models/pokemon_details_args.dart';
 import '../screens/pokemon_details_screen.dart';
@@ -67,12 +68,18 @@ class PokemonCard extends StatelessWidget {
               height: 10,
             ),
             Container(
-              height: 60,
+              height: 80,
+              width: 80,
               child: Hero(
                 tag: pkData.pokemon[pkIndex].id,
                 child: CachedNetworkImage(
                   imageUrl: pkData.pokemon[pkIndex].img,
-                  placeholder: (context, url) => CircularProgressIndicator(),
+                  placeholder: (context, url) => FlareActor(
+                'assets/images/Poke_Spinner.flr',
+                alignment: Alignment.center,
+                fit: BoxFit.fill,
+                animation: 'pokespin',
+              ),
                   errorWidget: (context, url, error) => Icon(Icons.error),
                   fit: BoxFit.fill,
                 ),
