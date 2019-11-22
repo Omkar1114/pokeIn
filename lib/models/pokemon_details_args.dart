@@ -1,4 +1,3 @@
-//import 'package:flutter/material.dart';
 import './pokemon_data.dart';
 
 class PokemonDetailsArgs {

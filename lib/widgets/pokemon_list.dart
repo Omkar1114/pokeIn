@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../models/pokemon_details_args.dart';
 import '../screens/pokemon_details_screen.dart';
 import '../models/pokemon_data.dart';
@@ -8,7 +10,7 @@ class PokemonList extends StatelessWidget {
   final int pkIndex;
   final Function selectColor;
 
-  PokemonList(this.pkData, this.pkIndex,this.selectColor);
+  PokemonList(this.pkData, this.pkIndex, this.selectColor);
 
   @override
   Widget build(BuildContext context) {
@@ -21,17 +23,22 @@ class PokemonList extends StatelessWidget {
       ),
       child: ListTile(
         onTap: () {
-          Navigator.pushNamed(context, PokemonDetailsScreen.routeName,
-              arguments: PokemonDetailsArgs(
-                pk: pkData.pokemon[pkIndex],
-                selectColor: selectColor,
-                pkData: pkData,
-              ));
+          Navigator.pushNamed(
+            context,
+            PokemonDetailsScreen.routeName,
+            arguments: PokemonDetailsArgs(
+              pk: pkData.pokemon[pkIndex],
+              selectColor: selectColor,
+              pkData: pkData,
+            ),
+          );
         },
         trailing: Hero(
           tag: pkData.pokemon[pkIndex].id,
-          child: Image.network(
-            pkData.pokemon[pkIndex].img,
+          child: CachedNetworkImage(
+            imageUrl: pkData.pokemon[pkIndex].img,
+            placeholder: (context, url) => CircularProgressIndicator(),
+            errorWidget: (context, url, error) => Icon(Icons.error),
             fit: BoxFit.fill,
           ),
         ),

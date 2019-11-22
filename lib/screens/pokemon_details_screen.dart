@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
 import '../widgets/custom_container.dart';
 import '../models/pokemon_details_args.dart';
 
@@ -203,12 +205,13 @@ class PokemonDetailsScreen extends StatelessWidget {
           ),
           Positioned(
             top: mediaQuery.size.height * 0.4 - 120,
-            left: mediaQuery.size.width * 0.5 - 75,
+            left: mediaQuery.size.width * 0.5 - 65,
             child: Hero(
               tag: routeArgs.pk.id,
-              child: Image.network(
-                routeArgs.pk.img,
-                height: 150,
+              child: CachedNetworkImage(
+                imageUrl: routeArgs.pk.img,
+                placeholder: (context, url) => CircularProgressIndicator(),
+                errorWidget: (context, url, error) => Icon(Icons.error),
                 fit: BoxFit.fill,
               ),
             ),
