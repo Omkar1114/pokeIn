@@ -14,6 +14,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.amber,
         fontFamily: 'Arvo',
       ),
+      debugShowCheckedModeBanner: false,
       home: HomeScreen(),
       routes: {
         PokemonDetailsScreen.routeName : (ctx) => PokemonDetailsScreen(),

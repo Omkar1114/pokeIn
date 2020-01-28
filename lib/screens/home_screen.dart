@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
 
 import '../widgets/pokemon_card.dart';
 import '../models/pokemon_data.dart';
@@ -19,14 +19,13 @@ class _HomeScreenState extends State<HomeScreen> {
 
   PokemonData pokemonData;
 
-   Future<void> fetchData() async {
-    var res = await get(url);
+  Future<void> fetchData() async {
+    var res = await http.get(url);
     var decodedData = jsonDecode(res.body);
     pokemonData = PokemonData.fromJson(decodedData);
     //  print(decodedData);
     setState(() {});
   }
-
 
   Color selectColor(String type) {
     switch (type) {
@@ -153,7 +152,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                           childCount: pokemonData.pokemon.length,
                         ),
-                      )
+                      ),
               ],
             ),
       backgroundColor: Colors.white,
